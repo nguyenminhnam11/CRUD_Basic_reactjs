@@ -10,6 +10,12 @@ export default function ListEmployee() {
   const [listEmployee, setListEmployee] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const styleLoading = {
+    position: 'relative',
+    top: '180px',
+    left: '50%'
+  }
+
   const getData = async () => {
     try {
       setLoading(true) // Set loading to true before fetching
@@ -63,7 +69,7 @@ export default function ListEmployee() {
 
 
       {loading ? (
-        <Loading />
+        <Loading style={styleLoading}/>
       ) : (
         <Table striped bordered hover>
           <thead>
@@ -77,19 +83,22 @@ export default function ListEmployee() {
             </tr>
           </thead>
           <tbody>
-            {listEmployee.map((item, index) => (
-              <tr key={item.id}>
-                <td>{index + 1}</td>
-                <td>{item.name}</td>
-                <td>{item.age}</td>
-                <td>{item.email}</td>
-                <td>{item.gender}</td>
-                <td style={{ display: 'flex', gap: '10px' }}>
-                  <ModalEdit employeeId={item.id} updatedEditUser={updatedEditUser} />
-                  <ModalDelete employee={item} onRemove={handleRemoveToList} />
-                </td>
-              </tr>
-            ))}
+            {listEmployee.length > 0 ?
+              listEmployee.map((item, index) => (
+                <tr key={item.id}>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{item.age}</td>
+                  <td>{item.email}</td>
+                  <td>{item.gender}</td>
+                  <td style={{ display: 'flex', gap: '10px' }}>
+                    <ModalEdit employeeId={item.id} updatedEditUser={updatedEditUser} />
+                    <ModalDelete employee={item} onRemove={handleRemoveToList} />
+                  </td>
+                </tr>
+              ))
+              : <p style={{ marginTop: '20px', fontSize: '20px', color: 'gray' }}>List empty</p>
+            }
           </tbody>
         </Table>
       )}

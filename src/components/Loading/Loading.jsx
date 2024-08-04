@@ -1,9 +1,9 @@
 import React from 'react'
 import './Loading.css'
 
-export default function Loading() {
+export default function Loading({ style }) {
     return (
-        <div className='loading'>
+        <div style={style}>
             <svg viewBox="25 25 50 50">
                 <circle r="20" cy="50" cx="50"></circle>
             </svg>
